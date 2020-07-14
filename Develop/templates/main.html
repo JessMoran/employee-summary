@@ -2,31 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>My Team</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>Company</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/c502137733.js"></script>
+  <link rel="stylesheet" href="../Assets/style.css">
+  <script src="https://kit.fontawesome.com/c502137733.js"></script>
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="team-area col-12 d-flex justify-content-center">
-                {{ team }}
-            </div>
-        </div>
-    </div>
-</body>
+<style>
+  .text-sm {
+    font-size: 2rem;
+  }
 
+  .text-orange {
+    color: #ED8936 !important;
+  }
+
+  .mt-lg {
+    margin-top: 5rem;
+  }
+</style>
+
+<nav id="navbar-example2" class="navbar navbar-light bg-white d-flex justify-content-start text-orange">
+  <i class="far fa-building mr-3 text-sm"></i>
+  <a class="navbar-brand text-orange" href="#">Company</a>
+</nav>
+<h2 class="text-orange text-center mt-3">Our Team</h2>
+<div class="container">
+  <div class="row">
+    <div class="team-area col-12 d-flex justify-content-center">
+      {{ team }}
+    </div>
+  </div>
+</div>
+<div class="mt-4">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path fill="#ED8936" fill-opacity="1"
+          d="M0,64L48,85.3C96,107,192,149,288,165.3C384,181,480,171,576,149.3C672,128,768,96,864,101.3C960,107,1056,149,1152,186.7C1248,224,1344,256,1392,272L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+  </svg>
+</div>
+</body>
 </html>
