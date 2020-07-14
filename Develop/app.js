@@ -13,67 +13,127 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+let teamMembers = [];
 
-function promptUserInfo() {
+function getRole() {
+  return inquirer.prompt([
+    {
+      type: "checkbox",
+      message: "What type of team member would you like to add?",
+      name: "role",
+      choices: [
+        "Engineer",
+        "Intern",
+        "I don't want to add any more team members",
+      ]
+    }
+  ])
+    .then(function (data) {
+      if (data.role[0] === "Engineer") {
+        promptEngineerQtns();
+      } else if (data.role[0] === "Intern") {
+        promptInternQtns();
+      } else {
+        createHTML();
+      }
+    })
+}
+
+function promptManagerQtns() {
   return inquirer.prompt([
     {
       type: "input",
-      message: "What is your Github username?",
-      name: "username"
+      message: "What is your manager's name?",
+      name: "name"
     },
     {
       type: "input",
-      message: "What is your email address?",
-      name: "address"
+      message: "What is your manager's id?",
+      name: "id"
     },
     {
       type: "input",
-      message: "What is your project's name?",
-      name: "title"
+      message: "What is your manager's email?",
+      name: "email"
     },
     {
       type: "input",
-      message: "Please! Write a description of your project",
-      name: "description"
+      message: "What is your manager's office number?",
+      name: "officeNumber"
+    },
+  ]).then((data) => {
+    let manager = new Manager (data.name, data.id, data.email, data.officeNumber);
+    teamMembers.push(manager);
+    getRole()
+  })
+}
+
+function promptEngineerQtns() {
+  return inquirer.prompt([
+    {
+      type: "input",
+      message: "What is your engineer's name?",
+      name: "name"
     },
     {
       type: "input",
-      message: "What does the user need to know about using the repo?",
-      name: "usages"
+      message: "What is your engineer's id?",
+      name: "id"
     },
     {
       type: "input",
-      message: "Please, write your file's demo name",
-      name: "demo"
+      message: "What is your engineer's email?",
+      name: "email"
     },
     {
       type: "input",
-      message: "How to run?",
-      name: "run"
+      message: "What is your engineer's Github username?",
+      name: "github"
     },
+  ]).then((data) => {
+    let engineer = new Engineer (data.name, data.id, data.email, data.github);
+    teamMembers.push(engineer);
+    getRole()
+  })
+}
+
+function promptInternQtns() {
+  return inquirer.prompt([
     {
-      type: "checkbox",
-      message: "What kind of licence should your project have?",
-      name: "license",
-      choices: [
-        "MIT",
-        "APACHE 2.0",
-        "GPL 3.0",
-        "Boost Software License 1.0",
-        "Mozilla Public License 2.0",
-      ]
+      type: "input",
+      message: "What is your intern's name?",
+      name: "name"
     },
     {
       type: "input",
-      message: "What command should be run to install dependencies?",
-      name: "dependencies"
+      message: "What is your intern's id?",
+      name: "id"
     },
     {
       type: "input",
-      message: "What command should be run to run test?",
-      name: "test"
+      message: "What is your intern's email?",
+      name: "email"
     },
-  ]);
+    {
+      type: "input",
+      message: "What is your intern's school?",
+      name: "school"
+    },
+  ]).then((data) => {
+    let intern = new Intern (data.name, data.id, data.email, data.school);
+    teamMembers.push(intern);
+    getRole()
+  })
+}
+
+promptManagerQtns();
+
+function createHTML() {
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR)
+  }
+//******  teamMembers in fs.writeFileSync(outPath,render(teamMembers),"utf-8); is the array variable you are pushing team member objects to. IF your array is labeled differently make sure to change it here as well
+  fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
 }
 
 // After the user has input all employees desired, call the `render` function (required
